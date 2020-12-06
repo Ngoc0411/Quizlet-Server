@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Quizlet_Server.Data;
 
 namespace Quizlet_Server.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20201104030528_addMoreInfoInTaiKhoan")]
+    partial class addMoreInfoInTaiKhoan
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -92,9 +94,6 @@ namespace Quizlet_Server.Migrations
                     b.Property<string>("MoTa")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("TaiKhoanID")
                         .HasColumnType("int");
 
@@ -137,9 +136,6 @@ namespace Quizlet_Server.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Anh")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
@@ -172,22 +168,10 @@ namespace Quizlet_Server.Migrations
                     b.Property<string>("Anh")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("CachSuDung")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("GiaiNghia")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("HocPhanID")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("NgayTao")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("PhatAm")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("TaiKhoanID")
                         .HasColumnType("int");
 
                     b.Property<string>("ThuatNgu")

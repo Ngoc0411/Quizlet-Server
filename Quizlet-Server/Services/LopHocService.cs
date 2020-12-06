@@ -17,20 +17,22 @@ namespace Quizlet_Server.Services
             appDbContext = new AppDbContext();
         }
 
-        public IQueryable<LopHoc> GetDanhSachLopHoc(string keywords)
+        public IQueryable<LopHoc> GetDanhSachLopHoc(int TKId, string keywords)
         {
             var query = appDbContext.LopHocs.Include(x => x.TaiKhoan)
                                             .Include(x => x.LopHoc_HocSinhs)
                                             .Include(x => x.HocPhans)
+                                            .Where(x => x.TaiKhoanID == TKId)
                                             .AsQueryable();
-            if (!string.IsNullOrEmpty(keywords))
-            {
-                keywords = keywords.ToLower();
-                query = query.Where(lh => lh.TenLopHoc.ToLower().Contains(keywords)
-                                    || lh.TaiKhoan.TenTaiKhoan.ToLower().Contains(keywords)
-                                    || lh.MoTa.ToLower().Contains(keywords)
-                                    );
-            }
+            //if (keywords == "all") return query;
+            //if (!string.IsNullOrEmpty(keywords))
+            //{
+            //    keywords = keywords.ToLower();
+            //    query = query.Where(lh => lh.TenLopHoc.ToLower().Contains(keywords)
+            //                        || lh.TaiKhoan.TenNguoiDung.ToLower().Contains(keywords)
+            //                        || lh.MoTa.ToLower().Contains(keywords)
+            //                        );
+            //}
             return query;
         }
 

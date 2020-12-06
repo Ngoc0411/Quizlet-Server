@@ -19,11 +19,11 @@ namespace Quizlet_Server.Apis
         {
             _hocPhanService = new HocPhanService();
         }
-        [Route("")]
+        [Route("{lhid}/{keywords}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetDanhSachHocPhan(string keywords = null)
+        public async Task<IHttpActionResult> GetDanhSachHocPhan(int lhid,string keywords)
         {
-            var query = _hocPhanService.GetDanhSachHocPhan(keywords);
+            var query = _hocPhanService.GetDanhSachHocPhan(lhid);
             var data = query.Select(hp => new
             {
                 hp.HocPhanID,
@@ -31,7 +31,7 @@ namespace Quizlet_Server.Apis
                 hp.TenHocPhan,
                 hp.MoTa,
                 hp.LopHocID,
-                soluongthe = hp.Thes.Count(),
+                Soluongthe = hp.Thes.Count(),
             }).ToList();
             return Ok(data);
         }
@@ -47,6 +47,7 @@ namespace Quizlet_Server.Apis
                 hp.TenHocPhan,
                 hp.MoTa,
                 hp.LopHocID,
+                Soluongthe = hp.Thes.Count(),
             };
             return Ok(data);
         }

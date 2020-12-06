@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quizlet_Server.Interfaces.Services
 {
-    interface ILopHocService
+    public interface ILopHocService
     {
-        IQueryable<LopHoc> GetDanhSachLopHoc(string keywords);
+        IQueryable<LopHoc> GetDanhSachLopHoc(int TKId, string keywords);
         LopHoc GetLopHocById(int lopHocId);
         LopHoc CreateLopHoc(LopHoc lopHoc);
         LopHoc UpdateLopHoc(int lopHocId, LopHoc lopHoc);

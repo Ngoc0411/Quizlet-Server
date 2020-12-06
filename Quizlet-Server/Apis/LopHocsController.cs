@@ -18,19 +18,19 @@ namespace Quizlet_Server.Apis
         {
             _lopHocService = new LopHocService();
         }
-        [Route("")]
+        [Route("{TKId}/{keywords}")]
         [HttpGet]
-        public async Task<IHttpActionResult> GetDanhSachLopHoc(string keywords = null)
+        public async Task<IHttpActionResult> GetDanhSachLopHoc(int TKId, string keywords)
         {
-            var query = _lopHocService.GetDanhSachLopHoc(keywords);
+            var query = _lopHocService.GetDanhSachLopHoc(TKId, keywords);
             var data = query.Select(lh => new
             {
                 lh.LopHocID,
                 lh.TenLopHoc,
                 lh.MoTa,
-                lh.TaiKhoan.TaiKhoanID,
-                lh.TaiKhoan.TenTaiKhoan,
-                soluonghocphan = lh.HocPhans.Count(),
+                lh.NgayTao,
+                SoLuongHocVien = lh.LopHoc_HocSinhs.Count(),
+                SoLuongHocPhan = lh.HocPhans.Count(),
             }).ToList();
             return Ok(data);
         }
@@ -45,42 +45,44 @@ namespace Quizlet_Server.Apis
                 lh.LopHocID,
                 lh.TenLopHoc,
                 lh.MoTa,
-                lh.TaiKhoan.TaiKhoanID,
-                lh.TaiKhoan.TenTaiKhoan,
+                lh.NgayTao,
+                SoLuongHocVien = lh.LopHoc_HocSinhs.Count(),
+                SoLuongHocPhan = lh.HocPhans.Count(),
             };
             return Ok(data);
         }
-        [Route("danhsachhocsinhlop{id}")]
-        [HttpGet]
-        public async Task<IHttpActionResult> GetDanhSachHocVienByLopHocID(int id)
-        {
-            var query = _lopHocService.GetDanhSachHocVienByLopHocID(id);
-            var data = query.Select(lh => new
-            {
-                lh.TaiKhoanID,
-                lh.TaiKhoan.TenTaiKhoan
-            }).ToList();
-            return Ok(data);
-        }
+        //[Route("danhsachhocsinhlop{id}")]
+        //[HttpGet]
+        //public async Task<IHttpActionResult> GetDanhSachHocVienByLopHocID(int id)
+        //{
+        //    var query = _lopHocService.GetDanhSachHocVienByLopHocID(id);
+        //    var data = query.Select(lh => new
+        //    {
+        //        lh.TaiKhoanID,
+        //        lh.TaiKhoan.TenNguoiDung
+        //    }).ToList();
+        //    return Ok(data);
+        //}
 
-        [Route("danhsachhocphanlop{id}")]
-        [HttpGet]
-        public async Task<IHttpActionResult> GetDanhSachHocPhanByLopHocID(int id)
-        {
-            var query = _lopHocService.GetDanhSachHocPhanByLopHocID(id);
-            var data = query.Select(hp => new
-            {
-                hp.HocPhanID,
-                hp.TenHocPhan,
-                hp.MoTa
-            }).ToList();
-            return Ok(data);
-        }
+        //[Route("danhsachhocphanlop{id}")]
+        //[HttpGet]
+        //public async Task<IHttpActionResult> GetDanhSachHocPhanByLopHocID(int id)
+        //{
+        //    var query = _lopHocService.GetDanhSachHocPhanByLopHocID(id);
+        //    var data = query.Select(hp => new
+        //    {
+        //        hp.HocPhanID,
+        //        hp.TenHocPhan,
+        //        hp.MoTa
+        //    }).ToList();
+        //    return Ok(data);
+        //}
 
         [Route("")]
         [HttpPost]
         public async Task<IHttpActionResult> CreateLopHoc(LopHoc lopHoc)
         {
+            lopHoc.NgayTao = DateTime.Now;
             _lopHocService.CreateLopHoc(lopHoc);
             return Ok(lopHoc);
         }

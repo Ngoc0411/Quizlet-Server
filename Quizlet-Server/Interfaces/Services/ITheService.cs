@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quizlet_Server.Interfaces.Services
 {
-    interface ITheService
+    public interface ITheService
     {
-        IQueryable<The> GetDanhSachThe(string keywords);
+        IQueryable<The> GetDanhSachThe(int TKId);
         The GetTheById(int theId);
         The CreateThe(The the);
         The UpdateThe(int theId, The the);

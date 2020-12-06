@@ -8,9 +8,11 @@ namespace Quizlet_Server.Entities
     public class TaiKhoan
     {
         public int TaiKhoanID { get; set; }
+        public string Anh { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
-        public string TenTaiKhoan { get; set; }
+        public string MatKhau { get; set; }
+        public string TenNguoiDung { get; set; }
+        public DateTime NgaySinh { get; set; }
         public int LoaiTaiKhoanID { get; set; }
         public virtual LoaiTaiKhoan LoaiTaiKhoan { get; set; }
         public virtual IEnumerable<LopHoc> LopHocs { get; set; }

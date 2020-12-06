@@ -17,7 +17,6 @@ namespace Quizlet_Server.Data
         public DbSet<BaiKiemTra> BaiKiemTras { get; set; }
         public DbSet<LopHoc_HocSinh> LopHoc_HocSinhs { get; set; }
 
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=localhost; initial catalog=QuizletDb; user id=sa; password=04112000");

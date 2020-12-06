@@ -12,6 +12,7 @@ namespace Quizlet_Server.Entities
         public virtual TaiKhoan TaiKhoan { get; set; }
         public string TenLopHoc { get; set; }
         public string MoTa { get; set; }
+        public DateTime NgayTao { get; set; }
         public virtual IEnumerable<LopHoc_HocSinh> LopHoc_HocSinhs { get; set; }
         public virtual IEnumerable<HocPhan> HocPhans { get; set; }
     }

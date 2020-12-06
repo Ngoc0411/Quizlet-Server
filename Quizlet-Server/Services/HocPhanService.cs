@@ -17,19 +17,21 @@ namespace Quizlet_Server.Services
             appDbContext = new AppDbContext();
         }
 
-        public IQueryable<HocPhan> GetDanhSachHocPhan(string keywords)
+        public IQueryable<HocPhan> GetDanhSachHocPhan(int lhid)
         {
             var query = appDbContext.HocPhans.Include(x => x.TaiKhoan)
                                             .Include(x => x.LopHoc)
+                                            .Include(x => x.Thes)
+                                            .Where(x => x.LopHocID == lhid)
                                             .AsQueryable();
-            if (!string.IsNullOrEmpty(keywords))
-            {
-                keywords = keywords.ToLower();
-                query = query.Where(hp => hp.TenHocPhan.ToLower().Contains(keywords)
-                                    || hp.TaiKhoan.TenTaiKhoan.ToLower().Contains(keywords)
-                                    || hp.MoTa.ToLower().Contains(keywords)
-                                    );
-            }
+            //if (!string.IsNullOrEmpty(keywords))
+            //{
+            //    keywords = keywords.ToLower();
+            //    query = query.Where(hp => hp.TenHocPhan.ToLower().Contains(keywords)
+            //                        || hp.TaiKhoan.TenNguoiDung.ToLower().Contains(keywords)
+            //                        || hp.MoTa.ToLower().Contains(keywords)
+            //                        );
+            //}
             return query;
         }
 
@@ -37,6 +39,7 @@ namespace Quizlet_Server.Services
         {
             var hp = appDbContext.HocPhans.Include(x => x.TaiKhoan)
                                             .Include(x => x.LopHoc)
+                                            .Include(x => x.Thes)
                                             .AsQueryable()
                                             .FirstOrDefault(x => x.HocPhanID == hocPhanId);
             return hp;

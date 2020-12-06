@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace Quizlet_Server.Interfaces.Services
 {
-    interface IHocPhanService
+    public interface IHocPhanService
     {
-        IQueryable<HocPhan> GetDanhSachHocPhan(string keywords);
+        IQueryable<HocPhan> GetDanhSachHocPhan(int lhid);
         HocPhan GetHocPhanById(int hocPhanId);
         HocPhan CreateHocPhan(HocPhan hocPhan);
         HocPhan UpdateHocPhan(int hocPhanId, HocPhan hocPhan);

@@ -25,6 +25,7 @@ namespace Quizlet_Server
             config.Formatters.XmlFormatter.SupportedMediaTypes.Clear();
             config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new DefaultContractResolver();
             config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+            config.Formatters.XmlFormatter.SupportedMediaTypes.Add(new System.Net.Http.Headers.MediaTypeHeaderValue("multipart/form-data"));
             EnableCorsAttribute val = new EnableCorsAttribute("*", "*", "*");
             CorsHttpConfigurationExtensions.EnableCors(config, val);
         }

@@ -16,23 +16,23 @@ namespace Quizlet_Server.Services
         {
             appDbContext = new AppDbContext();
         }
-        public IQueryable<The> GetDanhSachThe(string keywords)
+        public IQueryable<The> GetDanhSachThe(int TKId)
         {
-            var query = appDbContext.Thes.Include(x => x.HocPhan).AsQueryable();
-            if (!string.IsNullOrEmpty(keywords))
-            {
-                keywords = keywords.ToLower();
-                query = query.Where(t => t.ThuatNgu.ToLower().Contains(keywords)
-                                    || t.GiaiNghia.ToLower().Contains(keywords)
-                                    );
-            }
+            var query = appDbContext.Thes.Include(x => x.HocPhan).Where(x => x.TaiKhoanID == TKId).AsQueryable();
+            //var query = appDbContext.Thes.Where(x => x.TaiKhoanID == TKId).AsQueryable();
+            //if (!string.IsNullOrEmpty(keywords))
+            //{
+            //    keywords = keywords.ToLower();
+            //    query = query.Where(t => t.ThuatNgu.ToLower().Contains(keywords)
+            //                        || t.GiaiNghia.ToLower().Contains(keywords)
+            //                        );
+            //}
             return query;
         }
 
         public The GetTheById(int theId)
         {
-            var t = appDbContext.Thes.Include(x => x.HocPhan)
-                                     .AsQueryable()
+            var t = appDbContext.Thes.AsQueryable()
                                      .FirstOrDefault(x => x.TheID == theId);
             return t;
         }
@@ -50,6 +50,8 @@ namespace Quizlet_Server.Services
                 currentThe.ThuatNgu = the.ThuatNgu;
                 currentThe.Anh = the.Anh;
                 currentThe.GiaiNghia = the.GiaiNghia;
+                currentThe.PhatAm = the.PhatAm;
+                currentThe.CachSuDung = the.CachSuDung;
                 appDbContext.Thes.Update(currentThe);
                 appDbContext.SaveChanges();
                 return currentThe;
@@ -59,7 +61,7 @@ namespace Quizlet_Server.Services
         }
         public void DeleteThe(int theId)
         {
-            if (appDbContext.Thes.Any(lh => lh.TheID == theId))
+            if (appDbContext.Thes.Any(t => t.TheID == theId))
             {
                 var theCanXoa = GetTheById(theId);
                 appDbContext.Thes.Remove(theCanXoa);

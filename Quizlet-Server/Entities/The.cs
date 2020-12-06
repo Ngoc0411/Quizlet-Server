@@ -11,7 +11,11 @@ namespace Quizlet_Server.Entities
         public string Anh { get; set; }
         public string ThuatNgu { get; set; }
         public string GiaiNghia { get; set; }
+        public string PhatAm { get; set; }
+        public string CachSuDung { get; set; }
         public int HocPhanID { get; set; }
+        public int TaiKhoanID { get; set; }
+        public DateTime NgayTao { get; set; }
         public virtual HocPhan HocPhan { get; set; }
     }
 }
